@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Rangstrup.Xam.Plugin.Maps;assembly=Rangstrup.Xam.Plugin.Maps"
+             xmlns:views="clr-namespace:Rangstrup.Xam.Plugin.Mvvm.Views;assembly=Rangstrup.Xam.Plugin.Mvvm"
+             x:Class="HAppening.Mobile.Views.MapPage"
+             Title="MapPage">
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
+            <maps:MapControl AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     Camera="{Binding Camera}"
+                     Options="{Binding Options}"
+                     IsFixedCenter="{Binding IsFixedCenter}"
+                     Positions="{Binding ListItems}"
+                         MyPosition="{Binding MyPosition}"></maps:MapControl>
+        </AbsoluteLayout>
+
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End"
+            BackgroundColor="White"
+            Spacing="10"
+            HeightRequest="30" Orientation="Horizontal" Padding="10">
+            <Label VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" Text="Send position to server"></Label>
+            <Switch x:Name="Switch" Toggled="Switch_OnToggled"></Switch>
+        </StackLayout>
+    </StackLayout>
+</views:ViewBase>
