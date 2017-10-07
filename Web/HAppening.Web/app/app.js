@@ -7,7 +7,8 @@ angular.module('myApp', [
     'ngMap',
     'myApp.view1',
     'myApp.view2',
-    'myApp.version'
+    'myApp.version',
+    'angular-loading-bar'
 ]).
     config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');

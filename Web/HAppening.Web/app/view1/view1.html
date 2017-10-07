@@ -9,19 +9,73 @@
                 <!--<span class="marker-user-name">{{event.name}}</span>-->
             </div>
         </custom-marker>
-        <info-window
-                     id="infowindow">
-            <div ng-non-bindable>
-                <div id="siteNotice"></div>
-                <h1 id="firstHeading" class="firstHeading">{{event.name}}</h1>
+        <info-window id="infowindow">
+            <div ng-non-bindable id="info">
+                <div id="siteNotice">
+                    <img ng-src="{{event.profilePicture}}" width="200" height="200" />
+                </div>
+                <h1 id="firstHeading" class="firstHeading">
+                    <div id="headingIcon">
+                        <div id="headingIconMonth">{{event.startTime | date : 'MMM'}}</div>
+                        <div id="headingIconDay">{{event.startTime | date : 'dd'}}</div>
+                    </div>
+                    {{event.name}}
+                </h1>
                 <div id="bodyContent">
                     {{event.description}}
+                </div>
+                <div id="footContent">
+                    <a href="https://facebook.com/events/{{event.id}}" target="_new">Facebook</a> |
+                    <a href="{{event.ticketing.ticket_uri}}"  target="_new">Ticket</a>
                 </div>
             </div>
         </info-window>
     </ng-map>
 </div>
 <style>
+    #info {
+        width: 600px;
+        overflow-y: hidden;
+    }
+    #firstHeading {
+        margin: 0px;
+        padding-bottom: 5px;
+    }
+    #headingIcon {
+        float: left;
+        height: 60px;
+        overflow: hidden;
+        width: 50px;
+        margin-right: 10px
+    }
+
+    #headingIconMonth {
+        color: #fa3e3e;
+        position: relative;
+        height: 25px;
+        text-align: center;
+    }
+
+    #headingIconDay {
+        position: relative;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    #bodyContent {
+        height: 105px;
+        overflow-y: hidden;
+    }
+
+    #footContent {
+        padding-top: 10px;
+    }
+
+    #siteNotice {
+        float: left;
+        margin-right: 10px;
+    }
+
     .marker-user {
     }
 
@@ -29,6 +83,7 @@
         width: 35px;
         height: 35px;
     }
+
     .marker-user-name {
         font-size: medium;
         font-weight: bold;

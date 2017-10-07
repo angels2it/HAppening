@@ -112,6 +112,14 @@
     <Content Include="app\view2\view2_test.js" />
     <Content Include="bower_components\angular-loader\angular-loader.js" />
     <Content Include="bower_components\angular-loader\angular-loader.min.js" />
+    <Content Include="bower_components\angular-loading-bar\build\loading-bar.css" />
+    <Content Include="bower_components\angular-loading-bar\build\loading-bar.js" />
+    <Content Include="bower_components\angular-loading-bar\build\loading-bar.min.css" />
+    <Content Include="bower_components\angular-loading-bar\build\loading-bar.min.js" />
+    <Content Include="bower_components\angular-loading-bar\Gruntfile.js" />
+    <Content Include="bower_components\angular-loading-bar\index.js" />
+    <Content Include="bower_components\angular-loading-bar\src\loading-bar.css" />
+    <Content Include="bower_components\angular-loading-bar\src\loading-bar.js" />
     <Content Include="bower_components\angular-mocks\angular-mocks.js" />
     <Content Include="bower_components\angular-mocks\ngAnimateMock.js" />
     <Content Include="bower_components\angular-mocks\ngMock.js" />
@@ -123,10 +131,6 @@
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
     <Content Include="bower_components\angular\index.js" />
-    <Content Include="bower_components\html5-boilerplate\.gitattributes" />
-    <Content Include="bower_components\html5-boilerplate\.gitignore" />
-    <Content Include="bower_components\html5-boilerplate\dist\.gitattributes" />
-    <Content Include="bower_components\html5-boilerplate\dist\.gitignore" />
     <Content Include="bower_components\html5-boilerplate\dist\404.html" />
     <Content Include="bower_components\html5-boilerplate\dist\apple-touch-icon.png" />
     <Content Include="bower_components\html5-boilerplate\dist\browserconfig.xml" />
@@ -135,7 +139,6 @@
     <Content Include="bower_components\html5-boilerplate\dist\css\normalize.css" />
     <Content Include="bower_components\html5-boilerplate\dist\favicon.ico" />
     <Content Include="bower_components\html5-boilerplate\dist\humans.txt" />
-    <Content Include="bower_components\html5-boilerplate\dist\img\.gitignore" />
     <Content Include="bower_components\html5-boilerplate\dist\index.html" />
     <Content Include="bower_components\html5-boilerplate\dist\js\main.js" />
     <Content Include="bower_components\html5-boilerplate\dist\js\plugins.js" />
@@ -147,8 +150,6 @@
     <Content Include="bower_components\html5-boilerplate\dist\tile.png" />
     <Content Include="bower_components\html5-boilerplate\gulpfile.js" />
     <Content Include="bower_components\html5-boilerplate\LICENSE.txt" />
-    <Content Include="bower_components\html5-boilerplate\src\.gitattributes" />
-    <Content Include="bower_components\html5-boilerplate\src\.gitignore" />
     <Content Include="bower_components\html5-boilerplate\src\404.html" />
     <Content Include="bower_components\html5-boilerplate\src\apple-touch-icon.png" />
     <Content Include="bower_components\html5-boilerplate\src\browserconfig.xml" />
@@ -156,7 +157,6 @@
     <Content Include="bower_components\html5-boilerplate\src\css\main.css" />
     <Content Include="bower_components\html5-boilerplate\src\favicon.ico" />
     <Content Include="bower_components\html5-boilerplate\src\humans.txt" />
-    <Content Include="bower_components\html5-boilerplate\src\img\.gitignore" />
     <Content Include="bower_components\html5-boilerplate\src\index.html" />
     <Content Include="bower_components\html5-boilerplate\src\js\main.js" />
     <Content Include="bower_components\html5-boilerplate\src\js\plugins.js" />
@@ -509,8 +509,6 @@
     <Content Include="bower_components\moment\templates\default.js" />
     <Content Include="bower_components\moment\templates\locale-header.js" />
     <Content Include="bower_components\moment\templates\test-header.js" />
-    <Content Include="bower_components\ngmap\.gitattributes" />
-    <Content Include="bower_components\ngmap\.gitignore" />
     <Content Include="bower_components\ngmap\app.js" />
     <Content Include="bower_components\ngmap\build\docs\Attr2MapOptions.html" />
     <Content Include="bower_components\ngmap\build\docs\bicycling-layer.html" />
@@ -827,6 +825,15 @@
     <Content Include="bower_components\angular-loader\LICENSE.md" />
     <Content Include="bower_components\angular-loader\package.json" />
     <Content Include="bower_components\angular-loader\README.md" />
+    <Content Include="bower_components\angular-loading-bar\.bower.json" />
+    <Content Include="bower_components\angular-loading-bar\bower.json" />
+    <Content Include="bower_components\angular-loading-bar\CHANGELOG.md" />
+    <Content Include="bower_components\angular-loading-bar\CONTRIBUTING.md" />
+    <Content Include="bower_components\angular-loading-bar\ISSUE_TEMPLATE.md" />
+    <Content Include="bower_components\angular-loading-bar\LICENSE" />
+    <Content Include="bower_components\angular-loading-bar\package.json" />
+    <Content Include="bower_components\angular-loading-bar\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="bower_components\angular-loading-bar\README.md" />
     <Content Include="bower_components\angular-mocks\.bower.json" />
     <Content Include="bower_components\angular-mocks\bower.json" />
     <Content Include="bower_components\angular-mocks\LICENSE.md" />
@@ -847,12 +854,14 @@
     <Content Include="bower_components\angular\README.md" />
     <Content Include="bower_components\html5-boilerplate\.bower.json" />
     <Content Include="bower_components\html5-boilerplate\.editorconfig" />
+    <Content Include="bower_components\html5-boilerplate\.gitattributes" />
     <Content Include="bower_components\html5-boilerplate\.jscsrc" />
     <Content Include="bower_components\html5-boilerplate\.jshintrc" />
     <Content Include="bower_components\html5-boilerplate\.travis.yml" />
     <Content Include="bower_components\html5-boilerplate\CHANGELOG.md" />
     <Content Include="bower_components\html5-boilerplate\CONTRIBUTING.md" />
     <Content Include="bower_components\html5-boilerplate\dist\.editorconfig" />
+    <Content Include="bower_components\html5-boilerplate\dist\.gitattributes" />
     <Content Include="bower_components\html5-boilerplate\dist\.htaccess" />
     <Content Include="bower_components\html5-boilerplate\dist\doc\css.md" />
     <Content Include="bower_components\html5-boilerplate\dist\doc\extend.md" />
@@ -865,6 +874,7 @@
     <Content Include="bower_components\html5-boilerplate\package.json" />
     <Content Include="bower_components\html5-boilerplate\README.md" />
     <Content Include="bower_components\html5-boilerplate\src\.editorconfig" />
+    <Content Include="bower_components\html5-boilerplate\src\.gitattributes" />
     <Content Include="bower_components\html5-boilerplate\src\doc\css.md" />
     <Content Include="bower_components\html5-boilerplate\src\doc\extend.md" />
     <Content Include="bower_components\html5-boilerplate\src\doc\faq.md" />
@@ -873,7 +883,13 @@
     <Content Include="bower_components\html5-boilerplate\src\doc\misc.md" />
     <Content Include="bower_components\html5-boilerplate\src\doc\TOC.md" />
     <Content Include="bower_components\html5-boilerplate\src\doc\usage.md" />
+    <Content Include="bower_components\moment\.bower.json" />
+    <Content Include="bower_components\moment\bower.json" />
+    <Content Include="bower_components\moment\CHANGELOG.md" />
+    <Content Include="bower_components\moment\LICENSE" />
+    <Content Include="bower_components\moment\README.md" />
     <Content Include="bower_components\ngmap\.bower.json" />
+    <Content Include="bower_components\ngmap\.gitattributes" />
     <Content Include="bower_components\ngmap\.travis.yml" />
     <Content Include="bower_components\ngmap\bower.json" />
     <Content Include="bower_components\ngmap\CHANGELOG.md" />
@@ -905,11 +921,6 @@
     <Content Include="bower_components\ngmap\testapp\scripts\quakes.geo.json" />
     <Content Include="bower_components\ngmap\testapp\scripts\starbucks.json" />
     <Content Include="bower_components\ngmap\testapp\us-states-20m.json" />
-    <Content Include="bower_components\moment\.bower.json" />
-    <Content Include="bower_components\moment\bower.json" />
-    <Content Include="bower_components\moment\CHANGELOG.md" />
-    <Content Include="bower_components\moment\LICENSE" />
-    <Content Include="bower_components\moment\README.md" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -920,6 +931,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bower_components\html5-boilerplate\dist\img\" />
+    <Folder Include="bower_components\html5-boilerplate\src\img\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
