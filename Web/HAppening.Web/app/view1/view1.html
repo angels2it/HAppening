@@ -1,5 +1,10 @@
-<div map-lazy-load="https://maps.google.com/maps/api/js">
+<div map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyCewcYvjyUPTOGrH1pqnREGhea5ho2nTDs">
+    <div id="searchbox">
+        <input places-auto-complete types="['geocode']" on-place-changed="placeMarker()" />
+    </div>
     <ng-map center="[{{lat}}, {{lng}}]" zoom="16" default-style="false" style="height: 100vh !important">
+        <marker position="{{latlng}}" on-dragend="markerChange($event)"
+                animation="Animation.BOUNCE" animation="DROP" draggable="{{!isLoading}}"></marker>
         <custom-marker ng-repeat="event in events"
                        id="{{event.id}}" position="{{event.place.location.latitude}},{{event.place.location.longitude}}"
                        on-click="showInfo($index)"
@@ -7,6 +12,8 @@
             <div class="marker-user">
                 <img class="marker-user-icon" ng-src="{{event.profilePicture}}" />
                 <!--<span class="marker-user-name">{{event.name}}</span>-->
+
+
             </div>
         </custom-marker>
         <info-window id="infowindow">
@@ -26,21 +33,37 @@
                 </div>
                 <div id="footContent">
                     <a href="https://facebook.com/events/{{event.id}}" target="_new">Facebook</a> |
-                    <a href="{{event.ticketing.ticket_uri}}"  target="_new">Ticket</a>
+                    <a href="{{event.ticketing.ticket_uri}}" target="_new">Ticket</a>
                 </div>
             </div>
         </info-window>
     </ng-map>
 </div>
 <style>
+    #searchbox {
+        position: relative;
+        z-index: 999;
+        top: 10px;
+        padding-left: 125px;
+        padding-right: 65px;
+        height: 0;
+    }
+
+        #searchbox input {
+            width: 100%;
+            padding: 6px;
+        }
+
     #info {
         width: 600px;
         overflow-y: hidden;
     }
+
     #firstHeading {
         margin: 0px;
         padding-bottom: 5px;
     }
+
     #headingIcon {
         float: left;
         height: 60px;
