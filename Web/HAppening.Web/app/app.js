@@ -8,10 +8,11 @@ angular.module('myApp', [
     'myApp.view1',
     'myApp.view2',
     'myApp.version',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'socialLogin'
 ]).
-    config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+    config(['$locationProvider', '$routeProvider', 'socialProvider', function ($locationProvider, $routeProvider, socialProvider) {
         $locationProvider.hashPrefix('!');
-
         $routeProvider.otherwise({ redirectTo: '/view1' });
+        socialProvider.setFbKey({ appId: "1643698609246838", apiVersion: "v2.5" });
     }]);

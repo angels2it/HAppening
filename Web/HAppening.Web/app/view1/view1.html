@@ -38,21 +38,30 @@
             </div>
         </info-window>
     </ng-map>
+    <button fb-login type="button" scope="email,user_events" id="btnLogin" ng-hide="isLoggedIn">Facebook Login</button>
 </div>
 <style>
-    #searchbox {
-        position: relative;
+    #btnLogin {
+        position: fixed;
+        top: 50px;
         z-index: 999;
-        top: 10px;
-        padding-left: 125px;
-        padding-right: 65px;
-        height: 0;
+        background-color: #365899;
+        color: white;
+        padding: 5px;
     }
+     #searchbox {
+         position: relative;
+         z-index: 999;
+         top: 10px;
+         padding-left: 125px;
+         padding-right: 65px;
+         height: 0;
+     }
 
-        #searchbox input {
-            width: 100%;
-            padding: 6px;
-        }
+    #searchbox input {
+        width: 100%;
+        padding: 6px;
+    }
 
     #info {
         width: 600px;

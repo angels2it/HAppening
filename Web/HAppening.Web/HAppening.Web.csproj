@@ -127,6 +127,7 @@
     <Content Include="bower_components\angular-route\angular-route.js" />
     <Content Include="bower_components\angular-route\angular-route.min.js" />
     <Content Include="bower_components\angular-route\index.js" />
+    <Content Include="bower_components\angularjs-social-login\angularjs-social-login.js" />
     <Content Include="bower_components\angular\angular-csp.css" />
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
@@ -921,6 +922,10 @@
     <Content Include="bower_components\ngmap\testapp\scripts\quakes.geo.json" />
     <Content Include="bower_components\ngmap\testapp\scripts\starbucks.json" />
     <Content Include="bower_components\ngmap\testapp\us-states-20m.json" />
+    <Content Include="bower_components\angularjs-social-login\.bower.json" />
+    <Content Include="bower_components\angularjs-social-login\.gitattributes" />
+    <Content Include="bower_components\angularjs-social-login\package.json" />
+    <Content Include="bower_components\angularjs-social-login\README.md" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
