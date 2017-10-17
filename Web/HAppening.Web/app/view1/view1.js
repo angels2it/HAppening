@@ -18,7 +18,6 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.token = "";
         $scope.isLoading = false;
         function searchEvents() {
-            $scope.isLoading = true;
             var start = moment().unix();
             var end = moment().day(30).unix();
             $http.get(
@@ -36,7 +35,30 @@ angular.module('myApp.view1', ['ngRoute'])
                             return;
                         $scope.events.push(event);
                     });
+                })
+                .error(function (error) {
                     $scope.isLoading = false;
+                    alert('error when get data');
+                });
+        }
+        function getEventsByPageUserLiked() {
+            var start = moment().unix();
+            var end = moment().day(30).unix();
+            $http.get(
+                    'https://happening-service.herokuapp.com/mylikedpage/events?lat=' + $scope.lat + '&lng=' + $scope.lng +
+                    '&since=' + start +
+                    '&until=' + end +
+                    '&distance=10000&sort=venue&accessToken=' + $scope.token)
+                .success(function (data) {
+                    data.events.forEach(function (event) {
+                        if (_.find($scope.events,
+                                function (e) {
+                                    return e.id == event.id;
+                                }) !=
+                            null)
+                            return;
+                        $scope.events.push(event);
+                    });
                 })
                 .error(function (error) {
                     $scope.isLoading = false;
@@ -46,13 +68,11 @@ angular.module('myApp.view1', ['ngRoute'])
 
         function getUserEvents() {
             $scope.isLoading = true;
-            var start = moment().unix();
-            var end = moment().day(30).unix();
             $http.get(
-                'https://graph.facebook.com/v2.10/me/events?fields=id,type,name,picture.type(large),cover.fields(id,source),place.fields(id,name,location)&access_token=' + $scope.token)
+                'https://graph.facebook.com/v2.10/me/events?fields=id,type,name,description,picture.type(large),cover.fields(id,source),place.fields(id,name,location)&access_token=' + $scope.token)
                 .success(function (data) {
                     data.events.forEach(function (event) {
-                        if (_.find($scope.events,
+                        if (event.place == null || _.find($scope.events,
                                 function(e) {
                                     return e.id == event.id;
                                 }) !=
@@ -73,6 +93,7 @@ angular.module('myApp.view1', ['ngRoute'])
                 $scope.isLoggedIn = true;
                 $scope.token = userDetails.token;
                 getUserEvents();
+                getEventsByPageUserLiked();
             });
         navigator.geolocation.getCurrentPosition(function (pos) {
             if (pos.coords == null) {
