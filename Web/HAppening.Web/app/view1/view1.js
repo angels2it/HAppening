@@ -10,6 +10,8 @@ angular.module('myApp.view1', ['ngRoute'])
     }])
 
     .controller('View1Ctrl', ['$scope', '$firebaseArray', 'NgMap', '$http', '$timeout', '$rootScope', function ($scope, $firebaseArray, NgMap, $http, $timeout, $rootScope) {
+        var baseUrl = "http://localhost:5000/";
+        //var baseUrl = "https://happening-service.herokuapp.com/";
         function updateLatLng() {
             $scope.latlng = [$scope.lat, $scope.lng];
             searchEvents();
@@ -21,7 +23,7 @@ angular.module('myApp.view1', ['ngRoute'])
             var start = moment().unix();
             var end = moment().day(30).unix();
             $http.get(
-                'https://happening-service.herokuapp.com/events?lat=' + $scope.lat + '&lng=' + $scope.lng +
+                baseUrl + 'events?lat=' + $scope.lat + '&lng=' + $scope.lng +
                 '&since=' + start +
                 '&until=' + end +
                 '&distance=10000&sort=venue&accessToken=1643698609246838|x5PaPO_3sPq-hbaHksVGSftGn5c')
@@ -45,16 +47,16 @@ angular.module('myApp.view1', ['ngRoute'])
             var start = moment().unix();
             var end = moment().day(30).unix();
             $http.get(
-                    'https://happening-service.herokuapp.com/mylikedpage/events?lat=' + $scope.lat + '&lng=' + $scope.lng +
-                    '&since=' + start +
-                    '&until=' + end +
-                    '&distance=10000&sort=venue&accessToken=' + $scope.token)
+                baseUrl + 'events?type=pages&lat=' + $scope.lat + '&lng=' + $scope.lng +
+                '&since=' + start +
+                '&until=' + end +
+                '&distance=10000&sort=venue&accessToken=' + $scope.token)
                 .success(function (data) {
                     data.events.forEach(function (event) {
                         if (_.find($scope.events,
-                                function (e) {
-                                    return e.id == event.id;
-                                }) !=
+                            function (e) {
+                                return e.id == event.id;
+                            }) !=
                             null)
                             return;
                         $scope.events.push(event);
@@ -69,15 +71,25 @@ angular.module('myApp.view1', ['ngRoute'])
         function getUserEvents() {
             $scope.isLoading = true;
             $http.get(
-                'https://graph.facebook.com/v2.10/me/events?fields=id,type,name,description,picture.type(large),cover.fields(id,source),place.fields(id,name,location)&access_token=' + $scope.token)
+                'https://graph.facebook.com/v2.10/me/events?fields=id,type,name,start_time,end_time,description,picture.type(large),cover.fields(id,source),place.fields(id,name,location)&access_token=' + $scope.token)
                 .success(function (data) {
-                    data.events.forEach(function (event) {
+                    data.data.forEach(function (event) {
                         if (event.place == null || _.find($scope.events,
-                                function(e) {
-                                    return e.id == event.id;
-                                }) !=
+                            function (e) {
+                                return e.id == event.id;
+                            }) !=
                             null)
                             return;
+                        event.coverPicture = (event.cover ? event.cover.source : null);
+                        event.profilePicture = (event.picture ? event.picture.data.url : null);
+                        event.startTime = (event.start_time ? event.start_time : null);
+                        event.endTime = (event.end_time ? event.end_time : null);
+                        if (event.ticketing_terms_uri || event.ticketing_privacy_uri || event.ticket_uri) {
+                            event.ticketing = {};
+                            if (event.ticket_uri) event.ticketing.ticket_uri = event.ticket_uri;
+                            if (event.ticketing_terms_uri) event.ticketing.terms_uri = event.ticketing_terms_uri;
+                            if (event.ticketing_privacy_uri) event.ticketing.privacy_uri = event.ticketing_privacy_uri;
+                        }
                         $scope.events.push(event);
                     });
                     $scope.isLoading = false;
@@ -89,7 +101,7 @@ angular.module('myApp.view1', ['ngRoute'])
         }
 
         $rootScope.$on('event:social-sign-in-success',
-            function(event, userDetails) {
+            function (event, userDetails) {
                 $scope.isLoggedIn = true;
                 $scope.token = userDetails.token;
                 getUserEvents();

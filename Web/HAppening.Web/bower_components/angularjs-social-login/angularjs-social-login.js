@@ -22,6 +22,7 @@ socialLogin.provider("social", function () {
                     xfbml: true,
                     version: fbApiV
                 });
+                window.fbApiInit = true; //init flag
             };
 
             ref.parentNode.insertBefore(fbJs, ref);
@@ -167,15 +168,44 @@ socialLogin.directive("gLogin", ['$rootScope', 'social', 'socialLoginService',
         }
     }]);
 
-socialLogin.directive("fbLogin", ['$rootScope', 'social', 'socialLoginService', '$q',
-    function ($rootScope, social, socialLoginService, $q) {
+socialLogin.directive("fbLogin", ['$rootScope', 'social', 'socialLoginService', '$q', '$timeout',
+    function ($rootScope, social, socialLoginService, $q, $timeout) {
         return {
             restrict: 'EA',
             scope: {
-                scope: '@'
+                scope: '@',
+                silentMode: '='
             },
             replace: true,
             link: function (scope, ele, attr) {
+                var isSilent = false;
+                var permisions = {};
+                function fbEnsureInit(callback) {
+                    if (!window.fbApiInit) {
+                        setTimeout(function () { fbEnsureInit(callback); }, 50);
+                    } else {
+                        if (callback) {
+                            callback();
+                        }
+                    }
+                }
+                fbEnsureInit(function () {
+                    FB.getLoginStatus(function (response) {
+                        if (response.status === "connected") {
+                            FB.api('/me/permissions',
+                                function (presponse) {
+                                    permisions = presponse;
+                                    if (scope.silentMode) {
+                                        isSilent = true;
+                                        $timeout(function () {
+                                            ele[0].click();
+                                        }, 500);
+                                    }
+                                });
+                        }
+                    });
+                });
+
                 ele.on('click', function () {
                     var fetchUserDetails = function () {
                         var deferred = $q.defer();
@@ -194,37 +224,42 @@ socialLogin.directive("fbLogin", ['$rootScope', 'social', 'socialLoginService', 
                         });
                         return deferred.promise;
                     }
-                    var loginSuccess = function () {
+                    var loginSuccess = function (token) {
                         fetchUserDetails().then(function (userDetails) {
-                            userDetails["token"] = response.authResponse.accessToken;
+                            userDetails["token"] = token;
                             socialLoginService.setProvider("facebook");
                             $rootScope.$broadcast('event:social-sign-in-success', userDetails);
                         });
                     }
                     var popupLogin = function () {
+                        if (isSilent) {
+                            isSilent = false;
+                            return;
+                        }
                         FB.login(function (response) {
                             if (response.status === "connected") {
-                                loginSuccess();
+                                loginSuccess(response.authResponse.accessToken);
                             }
                         }, { scope: scope.scope, auth_type: 'rerequest' });
                     }
-                    
+
                     FB.getLoginStatus(function (response) {
                         if (response.status === "connected") {
                             var requiredPermisions = scope.scope.split(',');
-                            FB.api('/me/permissions', function (response) {
-                                if (!response || !response.data || !_.find(response.data,
-                                    function (p) {
-                                        return _.find(requiredPermisions,
-                                            function (rq) {
-                                                return p.permission === rq && p.status === "granted";
-                                            }) != null;
-                                    })) {
-                                    popupLogin();
-                                    return;
-                                };
-                                loginSuccess();
-                            });
+                            var requireLogin = false;
+                            if (permisions && permisions.data) {
+                                requiredPermisions.forEach(function (rp) {
+                                    if (_.find(permisions.data,
+                                        function (p) {
+                                            return p.permission === rp && p.status === "granted";
+                                        }) == null)
+                                        requireLogin = true;
+                                });
+                            }
+                            if (requireLogin)
+                                popupLogin();
+                            else
+                                loginSuccess(response.authResponse.accessToken);
                         } else {
                             popupLogin();
                         }

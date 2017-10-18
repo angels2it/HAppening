@@ -29,13 +29,13 @@
                     {{event.description}}
                 </div>
                 <div id="footContent">
-                    <a href="https://facebook.com/events/{{event.id}}" target="_new">Facebook</a> |
-                    <a href="{{event.ticketing.ticket_uri}}" target="_new">Ticket</a>
+                    <a href="https://facebook.com/events/{{event.id}}" target="_new">Facebook</a><span ng-if="event.ticketing"> | </span>
+                    <a ng-if="event.ticketing" href="{{event.ticketing.ticket_uri}}" target="_new">Ticket</a>
                 </div>
             </div>
         </info-window>
     </ng-map>
-    <button fb-login type="button" scope="email,user_events" id="btnLogin" ng-hide="isLoggedIn">Facebook Login</button>
+    <button fb-login type="button" scope="email,user_events,user_likes" silent-mode="true" id="btnLogin" ng-hide="isLoggedIn">Facebook Login</button>
 </div>
 <style>
     #btnLogin {
